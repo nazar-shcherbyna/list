@@ -2,7 +2,7 @@ const fs = require('fs')
 
 module.exports = {
     write(fileName, data) {
-        fs.writeFileSync(fileName, JSON.stringify(data))
+        fs.writeFileSync(fileName, JSON.stringify(data, null, 4))
     },
     read(fileName) {
         try {
