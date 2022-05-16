@@ -1,4 +1,5 @@
-import { store } from "../frontScripts/toggleStorage.js"
+import { store } from "../store.js"
+import { makeRequest } from "./makeRequest.js"
 
 class ItemsRequest {
 
@@ -7,11 +8,10 @@ class ItemsRequest {
       if (type === 'ls') {
         return JSON.parse(localStorage.getItem('items')) || []
       }
-      const response = await fetch('api/get', {
+      const items = await makeRequest('api/get', {
         body: JSON.stringify({type}),
         method: 'post',
       })
-      const items = await response.json()
       return items
     }
 
@@ -19,7 +19,7 @@ class ItemsRequest {
         try {
           const response = await fetch('api/delete', {
             method: 'post',
-            body: JSON.stringify({id, type: store.typeOfMemory}),
+            body: JSON.stringify({id, type: store.memoryType}),
           })
           const items = response.json()
           return items

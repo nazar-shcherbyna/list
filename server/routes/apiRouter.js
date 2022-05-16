@@ -1,4 +1,4 @@
-const memotyType = require("../constanst/memotyType")
+const memotyType = require("../constanst/memoryType")
 const getBody = require("../utils/getBody")
 const randomId = require("../utils/randomId")
 const workWithCSV = require("../workWithFiles/workWithCSV")
