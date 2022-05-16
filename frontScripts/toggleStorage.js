@@ -15,5 +15,6 @@ toggler.onchange = async (e) => {
     } else {
         items = await ItemsRequest.getItems(store.typeOfMemory)
     }
+    localStorage.setItem('memoryType', JSON.stringify(store.typeOfMemory))
     renderItems(items)
 }

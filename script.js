@@ -1,10 +1,8 @@
-// let nextId = +localStorage.nextId || 1;
-
 import { store } from "./frontScripts/toggleStorage.js";
 import ItemsRequest from "./requests/Items.js";
 
-// const items = JSON.parse(localStorage.getItem('items')) || [];
 const randomId = () => Math.random().toString(36).slice(3);
+const type = JSON.parse(localStorage.getItem('memoryType')) || 'json'
 
 form.onsubmit = async () => {
   const item = Object.fromEntries(new FormData(form))
@@ -38,7 +36,7 @@ itemList.onclick = ({target}) => {
   }
 }
 
-ItemsRequest.getItems().then(renderItems)
+ItemsRequest.getItems(type).then(renderItems)
 
 function buildItem({id, text, flag, num, date}) {
   return `<li>

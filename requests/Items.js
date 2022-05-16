@@ -2,13 +2,17 @@ import { store } from "../frontScripts/toggleStorage.js"
 
 class ItemsRequest {
 
-    static async getItems(type = 'json') {
-        const response = await fetch('api/get', {
-          body: JSON.stringify({type}),
-          method: 'post',
-        })
-        const items = await response.json()
-        return items
+    static async getItems(type) {
+      document.querySelector('.toggler').value = type
+      if (type === 'ls') {
+        return JSON.parse(localStorage.getItem('items')) || []
+      }
+      const response = await fetch('api/get', {
+        body: JSON.stringify({type}),
+        method: 'post',
+      })
+      const items = await response.json()
+      return items
     }
 
     static async removeItem(id) {
