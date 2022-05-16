@@ -15,7 +15,7 @@ class ItemsRequest {
         try {
           const response = await fetch('api/delete', {
             method: 'post',
-            body: JSON.stringify({id}),
+            body: JSON.stringify({id, type: store.typeOfMemory}),
           })
           const items = response.json()
           return items
@@ -24,10 +24,10 @@ class ItemsRequest {
         }
     }
 
-    static async addItem(item) {
+    static async addItem(item, type) {
       const response = await fetch('api/add', {
           method: 'post',
-          body: JSON.stringify(item),
+          body: JSON.stringify({item, type}),
       })
       const items = await response.json()
       return items

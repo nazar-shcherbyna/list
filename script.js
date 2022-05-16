@@ -11,18 +11,30 @@ form.onsubmit = async () => {
   item.id = randomId()
   let items = []
   if (store.typeOfMemory === 'ls') {
-    items = JSON.parse(localStorage.getItem('items'))
+    items = JSON.parse(localStorage.getItem('items')) || []
     items.push(item)
     localStorage.setItem('items', JSON.stringify(items))
   } else {
-    items = await ItemsRequest.addItem(item)
+    items = await ItemsRequest.addItem(item, store.typeOfMemory)
   }
   renderItems(items);
 }
 
 itemList.onclick = ({target}) => {
-  if (target.dataset.id) {
-    ItemsRequest.removeItem(target.dataset.id).then(renderItems)
+  const {id} = target.dataset
+
+  if (id) {
+    if (store.typeOfMemory === 'ls') {
+      const items = JSON.parse(localStorage.getItem('items')) || []
+      const idx = items.findIndex(item => item.id === id)
+      if (idx !== -1) {
+        items.splice(idx, 1)
+        localStorage.setItem('items', JSON.stringify(items))
+        renderItems(items)
+      }
+    } else {
+      ItemsRequest.removeItem(target.dataset.id).then(renderItems)
+    }
   }
 }
 
