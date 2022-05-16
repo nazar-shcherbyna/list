@@ -1,7 +1,12 @@
+import { store } from "../frontScripts/toggleStorage.js"
+
 class ItemsRequest {
 
-    static async getItems() {
-        const response = await fetch('api/get')
+    static async getItems(type = 'json') {
+        const response = await fetch('api/get', {
+          body: JSON.stringify({type}),
+          method: 'post',
+        })
         const items = await response.json()
         return items
     }
@@ -20,12 +25,12 @@ class ItemsRequest {
     }
 
     static async addItem(item) {
-        const response = await fetch('api/add', {
-            method: 'post',
-            body: JSON.stringify(item),
-        })
-        const items = await response.json()
-        return items
+      const response = await fetch('api/add', {
+          method: 'post',
+          body: JSON.stringify(item),
+      })
+      const items = await response.json()
+      return items
     }
 }
 

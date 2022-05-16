@@ -10,10 +10,15 @@ module.exports = async (request, response) => {
         if (url === '/') {
             url = '/index.html'
         }
-        const file = await readFile(`.${url}`)
-        if (url.endsWith('.js')) {
-            response.setHeader('Content-Type','application/javascript')
+        try {
+            const file = await readFile(`.${url}`)
+            if (url.endsWith('.js')) {
+                response.setHeader('Content-Type','application/javascript')
+            }
+            response.end(file)
+        } catch (e) {
+            response.statusCode = 404
+            response.end('file not found')
         }
-        response.end(file)
     }
 }

@@ -1,3 +1,4 @@
+const memotyType = require("../constanst/memotyType")
 const getBody = require("../utils/getBody")
 const randomId = require("../utils/randomId")
 const workWithCSV = require("../workWithFiles/workWithCSV")
@@ -13,9 +14,18 @@ module.exports = {
         workWithCSV.write('items.csv', items)
         response.end(JSON.stringify(items))
     },
-    get(request, response) {
-        // const items = workWithJSON.read('items.json')
-        const items = workWithCSV.read('items.csv')
+    async get(request, response) {
+        const body = await getBody(request)
+        const {type} = JSON.parse(body)
+        console.log(type);
+        let items = []
+        if (type === memotyType.json) {
+            items = workWithJSON.read('items.json')
+        } else if (type === memotyType.csv) {
+            items = workWithCSV.read('items.csv')
+        } else if (type === memotyType.ls) {
+            items = workWithCSV.read('items.csv')
+        }
         response.end(JSON.stringify(items))
     },
     async delete(request, response) {

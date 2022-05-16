@@ -53,3 +53,11 @@ li{
    margin: 0 auto;
  }
 
+
+ .toggler {
+   position: absolute;
+   top: 0;
+   right: 0;
+   background-color: aqua;
+   padding: 10px;
+ }

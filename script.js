@@ -1,12 +1,22 @@
 // let nextId = +localStorage.nextId || 1;
 
+import { store } from "./frontScripts/toggleStorage.js";
 import ItemsRequest from "./requests/Items.js";
 
 // const items = JSON.parse(localStorage.getItem('items')) || [];
+const randomId = () => Math.random().toString(36).slice(3);
 
 form.onsubmit = async () => {
   const item = Object.fromEntries(new FormData(form))
-  const items = await ItemsRequest.addItem(item)
+  item.id = randomId()
+  let items = []
+  if (store.typeOfMemory === 'ls') {
+    items = JSON.parse(localStorage.getItem('items'))
+    items.push(item)
+    localStorage.setItem('items', JSON.stringify(items))
+  } else {
+    items = await ItemsRequest.addItem(item)
+  }
   renderItems(items);
 }
 
@@ -29,6 +39,6 @@ function buildItem({id, text, flag, num, date}) {
   </li>`
 }
 
-function renderItems(items) {
+export function renderItems(items) {
   itemList.innerHTML = items.map(buildItem).join('');
 }

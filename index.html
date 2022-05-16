@@ -8,10 +8,18 @@
   <link rel="stylesheet" href="style.css">
   
   <script src="script.js" type="module"></script>
+  <script src="./frontScripts/toggleStorage.js" type="module"></script>
   <title>Where to store Data</title>
 </head>
 
 <body>
+  <div class="toggle-storage-format">
+    <select class="toggler" name="" id="">
+      <option value="json" selected>JSON</option>
+      <option value="csv">CSV</option>
+      <option value="ls">LocalStorage</option>
+    </select>
+  </div>
   <div id="wrapper">
     <form action="javascript:" id="form">
       <h2>New item</h2>
