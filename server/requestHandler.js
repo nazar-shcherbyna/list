@@ -8,7 +8,7 @@ module.exports = async (request, response) => {
         apiRouter[route](request, response)
     } else {
         if (url === '/') {
-            url = '/index.html'
+            url = '/client/index.html'
         }
         try {
             const file = await readFile(`.${url}`)

@@ -1,4 +1,4 @@
-import WebStorage from "./scripts/WebStorage";
+import WebStorage from "./scripts/WebStorage.js";
 
 export const store = {
     memoryType: WebStorage.get('memoryType') || 'json',

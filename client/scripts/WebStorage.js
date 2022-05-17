@@ -1,4 +1,4 @@
-export default class WebStorage {
+class WebStorage {
     static get(key) {
         return JSON.parse(localStorage.getItem(key))
     }
@@ -7,3 +7,5 @@ export default class WebStorage {
         localStorage.setItem(key, JSON.stringify(data))
     }
 }
+
+export default WebStorage

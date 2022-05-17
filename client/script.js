@@ -2,6 +2,7 @@ import ItemsRequest from "./http/ItemsRequest.js";
 import { render } from "./scripts/render.js";
 import WebStorage from "./scripts/WebStorage.js";
 import { store } from "./store.js";
+import { randomId } from "./utils/randomId.js";
 
 form.onsubmit = async () => {
     const item = Object.fromEntries(new FormData(form))
@@ -22,7 +23,7 @@ itemList.onclick = ({target}) => {
     if (id) {
         if (store.memoryType === 'ls') {
             store.items = WebStorage.get('items') || []
-            const idx = items.findIndex(item => item.id === id)
+            const idx = store.items.findIndex(item => item.id === id)
             if (idx !== -1) {
                 store.items.splice(idx, 1)
                 WebStorage.save('items', store.items)
